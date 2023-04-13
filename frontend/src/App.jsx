@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 import './tailwind.css'
+import SearchedPlayers from './components/SearchedPlayers';
 
 function App() {
   const [searchedPlayers, setSearchedPlayers] = useState([]);
@@ -42,16 +43,12 @@ function App() {
     }
   }
 
-  const listItems = searchedPlayers.map(player => <div key={player.id}>{player.name}</div>)
-
   return (
     <div>
       <input type="text" name="player-search" placeholder="Player Search..."
         className="border-2" onChange={handlePlayerSearch}
       />
-      <div>
-        {listItems}
-      </div>
+      <SearchedPlayers players={searchedPlayers} /> 
     </div>
   )
 }
