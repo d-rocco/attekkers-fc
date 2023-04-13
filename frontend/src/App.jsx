@@ -1,33 +1,57 @@
 import { React, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './tailwind.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [searchedPlayers, setSearchedPlayers] = useState([]);
+
+  const players = [
+    {
+      name: "Messi",
+      id: 1
+    },
+    {
+      name: "Ronaldo",
+      id: 2
+    },
+    {
+      name: "Neymar",
+      id: 3
+    },
+    {
+      name: "Maradona",
+      id: 4
+    },
+    {
+      name: "Zidane",
+      id: 5
+    },
+    {
+      name: "De Bruyne",
+      id: 6
+    }
+  ];
+
+  function handlePlayerSearch(e) {
+    if (e.target.value.length >= 3) {
+      const tmp = players
+        .filter(player => player.name.toLowerCase().includes(e.target.value.toLowerCase()));
+      setSearchedPlayers(tmp);
+    }
+    else {
+      setSearchedPlayers([]);
+    }
+  }
+
+  const listItems = searchedPlayers.map(player => <div key={player.id}>{player.name}</div>)
 
   return (
-    <div className="App">
+    <div>
+      <input type="text" name="player-search" placeholder="Player Search..."
+        className="border-2" onChange={handlePlayerSearch}
+      />
       <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        {listItems}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }
